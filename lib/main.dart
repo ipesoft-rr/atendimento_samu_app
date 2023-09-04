@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'screens/home.dart';
 import 'screens/chat.dart';
-import './screens/home.dart';
+import 'screens/finished.dart';
 import 'screens/emergency_details.dart';
 
 void main() => runApp(const MyApp());
@@ -27,6 +28,12 @@ final GoRouter _router = GoRouter(
           path: 'chat',
           builder: (BuildContext context, GoRouterState state) {
             return const ChatScreen();
+          },
+        ),
+        GoRoute(
+          path: 'finished',
+          builder: (BuildContext context, GoRouterState state) {
+            return const FinishedScreen();
           },
         ),
       ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -20,7 +21,12 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ),
       ),
-      body: const Text('Body'),
+      body: ElevatedButton(
+        child: const Text('Finalizar'),
+        onPressed: () {
+          context.push('/finished');
+        },
+      ),
     );
   }
 }
