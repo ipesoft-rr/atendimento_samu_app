@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import './screens/home.dart';
+import 'screens/emergency_details.dart';
 
 void main() => runApp(const MyApp());
 
@@ -12,13 +13,13 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return const HomePage(title: 'Home');
+        return const HomePage(title: 'Início');
       },
       routes: <RouteBase>[
         GoRoute(
           path: 'details',
           builder: (BuildContext context, GoRouterState state) {
-            return const HomePage(title: 'Details');
+            return const EmergencyDetails();
           },
         ),
       ],
