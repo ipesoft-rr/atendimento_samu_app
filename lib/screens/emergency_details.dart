@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class EmergencyDetails extends StatefulWidget {
   const EmergencyDetails({super.key});
@@ -192,13 +193,17 @@ class _EmergencyDetailsState extends State<EmergencyDetails> {
           children: [
             OutlinedButton(
               child: const Text('Cancelar'),
-              onPressed: () {},
+              onPressed: () {
+                context.pop('/');
+              },
             ),
             const SizedBox(
               width: 8,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                context.push('/chat');
+              },
               style: ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(
                   Theme.of(context).colorScheme.primary,
