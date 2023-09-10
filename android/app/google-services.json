@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "725374644567",
+    "project_id": "atendimentosamu-c5ba2",
+    "storage_bucket": "atendimentosamu-c5ba2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:725374644567:android:908d54a80f7be29defce12",
+        "android_client_info": {
+          "package_name": "com.example.atendimento_samu_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "725374644567-7nqesgnoge47s4fb4fpiedml91gt9a4n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAz6EDJwlpHK4oGKklW_rgH1wC22jm08FU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "725374644567-7nqesgnoge47s4fb4fpiedml91gt9a4n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
