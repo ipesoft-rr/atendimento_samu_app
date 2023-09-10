@@ -59,7 +59,10 @@ final GoRouter _router = GoRouter(
         GoRoute(
           path: 'chat',
           builder: (BuildContext context, GoRouterState state) {
-            return const ChatScreen();
+            return const ChatScreen(
+              receiverUserEmail: 'ipe@gmail.com',
+              receiverUserID: 'v6CrEksU4dafuKK3qxcYfiDehP72',
+            );
           },
         ),
         GoRoute(
