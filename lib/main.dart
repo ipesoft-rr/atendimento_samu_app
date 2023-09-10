@@ -1,3 +1,5 @@
+import 'package:atendimento_samu_app/services/auth/auth_gate.dart';
+import 'package:atendimento_samu_app/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
@@ -7,8 +9,8 @@ import 'package:atendimento_samu_app/firebase_options.dart';
 
 import 'package:atendimento_samu_app/screens/signin.dart';
 import 'package:atendimento_samu_app/screens/signup.dart';
+import 'package:provider/provider.dart';
 
-import 'screens/home.dart';
 import 'screens/chat.dart';
 import 'screens/finished.dart';
 import 'screens/emergency_details.dart';
@@ -16,7 +18,12 @@ import 'screens/emergency_details.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => AuthService(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 /// The route configuration.
@@ -24,8 +31,11 @@ final GoRouter _router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
       path: '/',
+      // builder: (BuildContext context, GoRouterState state) {
+      //   return const HomeScreen(title: 'Início');
+      // },
       builder: (BuildContext context, GoRouterState state) {
-        return const HomeScreen(title: 'Início');
+        return const AuthGate();
       },
       routes: <RouteBase>[
         GoRoute(

@@ -1,6 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:atendimento_samu_app/services/auth/auth_service.dart';
+
 import 'package:atendimento_samu_app/components/my_button.dart';
 import 'package:atendimento_samu_app/components/my_text_field.dart';
-import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -13,7 +17,22 @@ class _SignInState extends State<SignIn> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void signIn() {}
+  void signIn() async {
+    final authService = Provider.of<AuthService>(context, listen: false);
+
+    try {
+      await authService.signInWithEmailAndPassword(
+        emailController.text,
+        passwordController.text,
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

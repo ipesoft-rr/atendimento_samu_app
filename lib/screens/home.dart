@@ -1,10 +1,22 @@
+import 'package:atendimento_samu_app/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.title});
 
   final String title;
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  void signOut() {
+    final authService = Provider.of<AuthService>(context, listen: false);
+    authService.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,11 +24,19 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
-          title,
+          widget.title,
           style: const TextStyle(
             color: Colors.white,
           ),
         ),
+        actions: [
+          IconButton(
+              onPressed: signOut,
+              icon: const Icon(
+                Icons.logout,
+                color: Colors.white,
+              ))
+        ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(24),
