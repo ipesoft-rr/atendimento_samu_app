@@ -49,6 +49,18 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
+          ElevatedButton(
+            onPressed: () => context.go('/signin'),
+            child: const Text(
+              'Sign In',
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () => context.go('/signup'),
+            child: const Text(
+              'Sign Up',
+            ),
+          ),
           const SizedBox(
             height: 20,
           ),

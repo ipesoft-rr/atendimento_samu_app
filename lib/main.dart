@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:atendimento_samu_app/firebase_options.dart';
+
+import 'package:atendimento_samu_app/screens/signin.dart';
+import 'package:atendimento_samu_app/screens/signup.dart';
 
 import 'screens/home.dart';
 import 'screens/chat.dart';
 import 'screens/finished.dart';
 import 'screens/emergency_details.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(const MyApp());
+}
 
 /// The route configuration.
 final GoRouter _router = GoRouter(
@@ -18,6 +28,18 @@ final GoRouter _router = GoRouter(
         return const HomeScreen(title: 'Início');
       },
       routes: <RouteBase>[
+        GoRoute(
+          path: 'signin',
+          builder: (BuildContext context, GoRouterState state) {
+            return const SignIn();
+          },
+        ),
+        GoRoute(
+          path: 'signup',
+          builder: (BuildContext context, GoRouterState state) {
+            return const SignUp();
+          },
+        ),
         GoRoute(
           path: 'details',
           builder: (BuildContext context, GoRouterState state) {
