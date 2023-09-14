@@ -1,11 +1,14 @@
-import 'package:atendimento_samu_app/components/my_button.dart';
-import 'package:atendimento_samu_app/components/my_text_field.dart';
-import 'package:atendimento_samu_app/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:atendimento_samu_app/services/auth/auth_service.dart';
+
+import 'package:atendimento_samu_app/components/my_button.dart';
+import 'package:atendimento_samu_app/components/my_text_field.dart';
+
 class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+  final void Function()? onTap;
+  const SignUp({super.key, required this.onTap});
 
   @override
   State<SignUp> createState() => _SignUpState();
@@ -17,30 +20,34 @@ class _SignUpState extends State<SignUp> {
   final confirmPasswordController = TextEditingController();
 
   void signUp() async {
-    if (passwordController.text != confirmPasswordController.text) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Senhas não conferem.'),
-        ),
-      );
-      return;
-    }
-
     final authService = Provider.of<AuthService>(context, listen: false);
 
     try {
-      await authService.signUpWithEmailAndPassword(
-          emailController.text, passwordController.text);
+      if (passwordController.text == confirmPasswordController.text) {
+        await authService.signUpWithEmailAndPassword(
+          emailController.text,
+          passwordController.text,
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Os textos não conferem'),
+          ),
+        );
+      }
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
           child: Padding(
@@ -51,10 +58,21 @@ class _SignUpState extends State<SignUp> {
                 const Icon(
                   Icons.message,
                   size: 80,
+                  color: Colors.white,
+                ),
+                const Image(
+                  image: AssetImage('assets/logo-red.png'),
+                  height: 100,
+                ),
+                const Text(
+                  'Registrar-se',
+                  style: TextStyle(
+                    fontSize: 24,
+                  ),
                 ),
                 MyTextField(
                   controller: emailController,
-                  hintText: 'Email',
+                  hintText: 'E-mail',
                   obscureText: false,
                 ),
                 const SizedBox(
@@ -62,15 +80,39 @@ class _SignUpState extends State<SignUp> {
                 ),
                 MyTextField(
                   controller: passwordController,
-                  hintText: 'Password',
+                  hintText: 'Senha',
                   obscureText: true,
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 MyTextField(
                   controller: confirmPasswordController,
-                  hintText: 'Confirm Password',
+                  hintText: 'Confirmar senha',
                   obscureText: true,
                 ),
-                MyButton(onTap: signUp, text: 'Sign Up'),
+                const SizedBox(
+                  height: 20,
+                ),
+                MyButton(onTap: signUp, text: 'Criar conta'),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    const Text('Já possui conta?'),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    GestureDetector(
+                      onTap: widget.onTap,
+                      child: const Text(
+                        'Entrar',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ],
+                )
               ],
             ),
           ),

@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(24),
               children: [
                 const Text(
-                  'Bem vindo, Pedro!',
+                  'Bem vindo!',
                   style: TextStyle(
                     fontSize: 32.0,
                     fontWeight: FontWeight.bold,
@@ -73,18 +73,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(
                       color: Colors.white,
                     ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () => context.go('/signin'),
-                  child: const Text(
-                    'Sign In',
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () => context.go('/signup'),
-                  child: const Text(
-                    'Sign Up',
                   ),
                 ),
                 const SizedBox(

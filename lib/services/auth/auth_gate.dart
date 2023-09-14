@@ -1,4 +1,4 @@
-import 'package:atendimento_samu_app/screens/signin.dart';
+import 'package:atendimento_samu_app/services/auth/signin_or_signup.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:atendimento_samu_app/screens/home.dart';
@@ -15,7 +15,7 @@ class AuthGate extends StatelessWidget {
           if (snapshot.hasData) {
             return const HomeScreen(title: 'Início');
           } else {
-            return const SignIn();
+            return const SignInOrSignUp();
           }
         },
       ),

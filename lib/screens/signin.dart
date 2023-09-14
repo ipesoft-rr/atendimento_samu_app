@@ -7,7 +7,8 @@ import 'package:atendimento_samu_app/components/my_button.dart';
 import 'package:atendimento_samu_app/components/my_text_field.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+  final void Function()? onTap;
+  const SignIn({super.key, required this.onTap});
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -80,13 +81,19 @@ class _SignInState extends State<SignIn> {
                 const SizedBox(
                   height: 20,
                 ),
-                const Row(
+                Row(
                   children: [
-                    Text('Não possui conta?'),
-                    SizedBox(
+                    const Text('Não possui conta?'),
+                    const SizedBox(
                       width: 4,
                     ),
-                    Text('Registrar-se')
+                    GestureDetector(
+                      onTap: widget.onTap,
+                      child: const Text(
+                        'Registrar-se',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    )
                   ],
                 )
               ],

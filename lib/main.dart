@@ -7,8 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:atendimento_samu_app/firebase_options.dart';
 
-import 'package:atendimento_samu_app/screens/signin.dart';
-import 'package:atendimento_samu_app/screens/signup.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/chat.dart';
@@ -38,18 +36,6 @@ final GoRouter _router = GoRouter(
         return const AuthGate();
       },
       routes: <RouteBase>[
-        GoRoute(
-          path: 'signin',
-          builder: (BuildContext context, GoRouterState state) {
-            return const SignIn();
-          },
-        ),
-        GoRoute(
-          path: 'signup',
-          builder: (BuildContext context, GoRouterState state) {
-            return const SignUp();
-          },
-        ),
         GoRoute(
           path: 'details',
           builder: (BuildContext context, GoRouterState state) {

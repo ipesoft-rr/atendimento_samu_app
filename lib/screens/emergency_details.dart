@@ -188,35 +188,38 @@ class _EmergencyDetailsState extends State<EmergencyDetails> {
         ),
       ),
       bottomNavigationBar: SafeArea(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            OutlinedButton(
-              child: const Text('Cancelar'),
-              onPressed: () {
-                context.pop('/');
-              },
-            ),
-            const SizedBox(
-              width: 8,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                context.push('/chat');
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(
-                  Theme.of(context).colorScheme.primary,
-                ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              OutlinedButton(
+                child: const Text('Cancelar'),
+                onPressed: () {
+                  context.pop('/');
+                },
               ),
-              child: const Text(
-                'Solicitar ajuda',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
+              const SizedBox(
+                width: 8,
               ),
-            )
-          ],
+              ElevatedButton(
+                onPressed: () {
+                  context.push('/chat');
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(
+                    Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                child: const Text(
+                  'Solicitar ajuda',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
