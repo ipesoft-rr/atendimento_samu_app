@@ -49,7 +49,10 @@ class _ChatScreenState extends State<ChatScreen> {
         Expanded(
           child: _buildMessageList(),
         ),
-        _buildMessageInput()
+        Padding(
+          padding: const EdgeInsets.fromLTRB(24, 0, 0, 6),
+          child: _buildMessageInput(),
+        )
       ]),
     );
   }
