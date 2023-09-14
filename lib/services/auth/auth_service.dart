@@ -49,4 +49,8 @@ class AuthService extends ChangeNotifier {
   Future<void> signOut() async {
     return await FirebaseAuth.instance.signOut();
   }
+
+  bool isAdmin() {
+    return FirebaseAuth.instance.currentUser?.email == 'ipe@gmail.com';
+  }
 }
