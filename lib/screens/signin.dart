@@ -37,7 +37,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
           child: Padding(
@@ -48,6 +48,17 @@ class _SignInState extends State<SignIn> {
                 const Icon(
                   Icons.message,
                   size: 80,
+                  color: Colors.white,
+                ),
+                const Image(
+                  image: AssetImage('assets/logo-red.png'),
+                  height: 100,
+                ),
+                const Text(
+                  'Bem vindo!',
+                  style: TextStyle(
+                    fontSize: 24,
+                  ),
                 ),
                 MyTextField(
                   controller: emailController,
@@ -62,14 +73,20 @@ class _SignInState extends State<SignIn> {
                   hintText: 'Password',
                   obscureText: true,
                 ),
-                MyButton(onTap: signIn, text: 'Sign in'),
+                const SizedBox(
+                  height: 20,
+                ),
+                MyButton(onTap: signIn, text: 'Entrar'),
+                const SizedBox(
+                  height: 20,
+                ),
                 const Row(
                   children: [
-                    Text('Not a member?'),
+                    Text('Não possui conta?'),
                     SizedBox(
                       width: 4,
                     ),
-                    Text('Register now')
+                    Text('Registrar-se')
                   ],
                 )
               ],
