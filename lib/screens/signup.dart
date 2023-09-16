@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import 'package:atendimento_samu_app/services/auth/auth_service.dart';
 
@@ -18,6 +19,18 @@ class _SignUpState extends State<SignUp> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final birthDateController = TextEditingController();
+  final cpfController = TextEditingController();
+
+  var dateMask = MaskTextInputFormatter(
+      mask: '##/##/####',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
+
+  var cpfMask = MaskTextInputFormatter(
+      mask: '###.###.###-##',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
 
   void signUp() async {
     final authService = Provider.of<AuthService>(context, listen: false);
@@ -90,6 +103,24 @@ class _SignUpState extends State<SignUp> {
                   controller: confirmPasswordController,
                   hintText: 'Confirmar senha',
                   obscureText: true,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                MyTextField(
+                  controller: birthDateController,
+                  hintText: 'Data de nascimento',
+                  obscureText: false,
+                  mask: dateMask,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                MyTextField(
+                  controller: cpfController,
+                  hintText: 'CPF',
+                  obscureText: false,
+                  mask: cpfMask,
                 ),
                 const SizedBox(
                   height: 20,
