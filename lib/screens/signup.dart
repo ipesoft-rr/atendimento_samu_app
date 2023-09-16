@@ -16,7 +16,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  bool loading = true;
+  bool loading = false;
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
