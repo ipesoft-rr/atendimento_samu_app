@@ -4,6 +4,7 @@ import 'package:atendimento_samu_app/services/chat/chat_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ChatScreen extends StatefulWidget {
   final String receiverUserEmail;
@@ -33,6 +34,16 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
+  void finishChat(BuildContext context) async {
+    context.push('/');
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+          content: Text('Chamado finalizado'), backgroundColor: Colors.green),
+    );
+    await _chatService.sendMessage(widget.receiverUserID, 'CHAMADO FINALIZADO');
+    await _chatService.clearChatRoomMessages(widget.receiverUserID);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +56,16 @@ class _ChatScreenState extends State<ChatScreen> {
             color: Colors.white,
           ),
         ),
+        actions: widget.receiverUserEmail != 'ipe@gmail.com'
+            ? [
+                IconButton(
+                    onPressed: () => finishChat(context),
+                    icon: const Icon(
+                      Icons.health_and_safety,
+                      color: Colors.white,
+                    ))
+              ]
+            : [],
       ),
       body: SafeArea(
         child: Column(children: [
@@ -73,6 +94,16 @@ class _ChatScreenState extends State<ChatScreen> {
 
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text('loading..');
+        }
+
+        for (var document in snapshot.data!.docs) {
+          Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+          bool isNotAdmin = widget.receiverUserEmail == 'ipe@gmail.com';
+          if (data['message'] == 'CHAMADO FINALIZADO' && isNotAdmin) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              context.push('/finished');
+            });
+          }
         }
 
         return ListView(

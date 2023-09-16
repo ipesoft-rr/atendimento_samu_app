@@ -26,7 +26,7 @@ class FinishedScreen extends StatelessWidget {
           const SizedBox(height: 8),
           ElevatedButton(
               onPressed: () {
-                context.go('/');
+                context.push('/');
               },
               child: const Text('Início'))
         ]),

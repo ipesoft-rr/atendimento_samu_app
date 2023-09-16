@@ -43,4 +43,27 @@ class ChatService extends ChangeNotifier {
         .orderBy('timestamp', descending: false)
         .snapshots();
   }
+
+  Future<void> clearChatRoomMessages(String receiverId) async {
+    try {
+      final String currentUserId = _firebaseAuth.currentUser!.uid;
+
+      List<String> ids = [currentUserId, receiverId];
+      ids.sort();
+      String chatRoomId = ids.join('_');
+
+      await _fireStore
+          .collection('chat_rooms')
+          .doc(chatRoomId)
+          .collection('messages')
+          .get()
+          .then((value) => {
+                value.docs.forEach((element) {
+                  element.reference.delete();
+                })
+              });
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
