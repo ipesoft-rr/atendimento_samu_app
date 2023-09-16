@@ -159,30 +159,33 @@ class _EmergencyDetailsState extends State<EmergencyDetails> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Row(
-              children: [
-                ChoiceChip(
-                  selected: location == 'my-position',
-                  label: const Text('Minha localização'),
-                  onSelected: (newState) {
-                    setState(() {
-                      location = 'my-position';
-                    });
-                  },
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                ChoiceChip(
-                  selected: location == 'set-on-map',
-                  label: const Text('Digitar endereço'),
-                  onSelected: (newState) {
-                    setState(() {
-                      location = 'set-on-map';
-                    });
-                  },
-                ),
-              ],
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  ChoiceChip(
+                    selected: location == 'my-position',
+                    label: const Text('Minha localização'),
+                    onSelected: (newState) {
+                      setState(() {
+                        location = 'my-position';
+                      });
+                    },
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  ChoiceChip(
+                    selected: location == 'set-on-map',
+                    label: const Text('Digitar endereço'),
+                    onSelected: (newState) {
+                      setState(() {
+                        location = 'set-on-map';
+                      });
+                    },
+                  ),
+                ],
+              ),
             ),
           ],
         ),

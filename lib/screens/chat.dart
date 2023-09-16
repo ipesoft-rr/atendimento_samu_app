@@ -37,6 +37,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
           widget.receiverUserEmail,
@@ -45,15 +46,17 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ),
       ),
-      body: Column(children: [
-        Expanded(
-          child: _buildMessageList(),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(24, 0, 0, 6),
-          child: _buildMessageInput(),
-        )
-      ]),
+      body: SafeArea(
+        child: Column(children: [
+          Expanded(
+            child: _buildMessageList(),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(24, 0, 0, 6),
+            child: _buildMessageInput(),
+          )
+        ]),
+      ),
     );
   }
 
