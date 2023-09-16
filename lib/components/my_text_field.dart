@@ -6,13 +6,15 @@ class MyTextField extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final TextInputFormatter? mask;
+  final Function? onSubmitted;
 
   const MyTextField(
       {super.key,
       required this.controller,
       required this.hintText,
       required this.obscureText,
-      this.mask});
+      this.mask,
+      this.onSubmitted});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,11 @@ class MyTextField extends StatelessWidget {
         hintText: hintText,
       ),
       inputFormatters: mask != null ? [mask as TextInputFormatter] : [],
+      onSubmitted: (value) {
+        if (onSubmitted != null) {
+          onSubmitted!();
+        }
+      },
     );
   }
 }

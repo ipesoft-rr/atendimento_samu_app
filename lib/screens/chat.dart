@@ -121,9 +121,11 @@ class _ChatScreenState extends State<ChatScreen> {
       children: [
         Expanded(
           child: MyTextField(
-              controller: _messageController,
-              hintText: 'Digite a mensagem',
-              obscureText: false),
+            controller: _messageController,
+            hintText: 'Digite a mensagem',
+            obscureText: false,
+            onSubmitted: sendMessage,
+          ),
         ),
         IconButton(
             onPressed: sendMessage,
