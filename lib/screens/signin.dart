@@ -124,11 +124,12 @@ class _SignInState extends State<SignIn> {
                     loading
                         ? const CircularProgressIndicator()
                         : MyButton(onTap: signIn, text: 'Entrar'),
-                    MyButton(
-                        onTap: () {
-                          signInAnonymously(context);
-                        },
-                        text: 'Emergência'),
+                    TextButton(
+                      onPressed: () {
+                        signInAnonymously(context);
+                      },
+                      child: const Text('Emergência'),
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -152,14 +153,6 @@ class _SignInState extends State<SignIn> {
               ),
             ),
           ),
-          const Column(
-            children: [
-              Text('Um aplicativo', style: TextStyle(color: Color(0xffE63946))),
-              Text('IpêSoft',
-                  style: TextStyle(
-                      color: Color(0xffE63946), fontWeight: FontWeight.bold))
-            ],
-          )
         ]),
       ),
     );
