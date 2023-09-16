@@ -49,68 +49,80 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(
-                  Icons.message,
-                  size: 80,
-                  color: Colors.white,
-                ),
-                const Image(
-                  image: AssetImage('assets/logo-red.png'),
-                  height: 100,
-                ),
-                const Text(
-                  'Bem vindo!',
-                  style: TextStyle(
-                    fontSize: 24,
-                  ),
-                ),
-                MyTextField(
-                  controller: emailController,
-                  hintText: 'Email',
-                  obscureText: false,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                MyTextField(
-                  controller: passwordController,
-                  hintText: 'Password',
-                  obscureText: true,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                loading
-                    ? const CircularProgressIndicator()
-                    : MyButton(onTap: signIn, text: 'Entrar'),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
+        child: Column(children: [
+          Expanded(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('Não possui conta?'),
-                    const SizedBox(
-                      width: 4,
+                    const Icon(
+                      Icons.message,
+                      size: 80,
+                      color: Colors.white,
                     ),
-                    GestureDetector(
-                      onTap: widget.onTap,
-                      child: const Text(
-                        'Registrar-se',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                    const Image(
+                      image: AssetImage('assets/logo-red.png'),
+                      height: 100,
+                    ),
+                    const Text(
+                      'Bem vindo!',
+                      style: TextStyle(
+                        fontSize: 24,
                       ),
+                    ),
+                    MyTextField(
+                      controller: emailController,
+                      hintText: 'Email',
+                      obscureText: false,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    MyTextField(
+                      controller: passwordController,
+                      hintText: 'Password',
+                      obscureText: true,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    loading
+                        ? const CircularProgressIndicator()
+                        : MyButton(onTap: signIn, text: 'Entrar'),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        const Text('Não possui conta?'),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        GestureDetector(
+                          onTap: widget.onTap,
+                          child: const Text(
+                            'Registrar-se',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
                     )
                   ],
-                )
-              ],
+                ),
+              ),
             ),
           ),
-        ),
+          const Column(
+            children: [
+              Text('Um aplicativo', style: TextStyle(color: Color(0xffF44336))),
+              Text('IpêSoft',
+                  style: TextStyle(
+                      color: Color(0xffF44336), fontWeight: FontWeight.bold))
+            ],
+          )
+        ]),
       ),
     );
   }
