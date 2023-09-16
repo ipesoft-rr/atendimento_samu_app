@@ -1,5 +1,6 @@
 import 'package:atendimento_samu_app/screens/chat.dart';
 import 'package:atendimento_samu_app/services/auth/auth_service.dart';
+import 'package:atendimento_samu_app/services/chat/chat_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -15,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final ChatService _chatService = ChatService();
   final AuthService _authService = AuthService();
 
   void signOut() {
@@ -138,17 +140,52 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildUserListItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
-    return ListTile(
-      title: Text(data['email']),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ChatScreen(
-              receiverUserEmail: data['email'],
-              receiverUserID: data['uid'],
+    List<String> ids = [data['uid'], 'v6CrEksU4dafuKK3qxcYfiDehP72'];
+    ids.sort();
+    String chatRoomId = ids.join('_');
+
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance
+          .collection('chat_rooms')
+          .doc(chatRoomId)
+          .collection('messages')
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return const Text('error');
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text('loading');
+        }
+
+        return ListTile(
+          title:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text(
+              data['email'],
             ),
-          ),
+            snapshot.data!.docs.isEmpty
+                ? const Icon(
+                    Icons.check,
+                    color: Colors.red,
+                  )
+                : const Icon(
+                    Icons.mark_chat_unread_outlined,
+                    color: Colors.red,
+                  )
+          ]),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChatScreen(
+                  receiverUserEmail: data['email'],
+                  receiverUserID: data['uid'],
+                ),
+              ),
+            );
+          },
         );
       },
     );

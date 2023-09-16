@@ -66,4 +66,22 @@ class ChatService extends ChangeNotifier {
       throw Exception(e);
     }
   }
+
+  Future<bool> hasMessages(String userId) async {
+    try {
+      List<String> ids = [userId, 'ipe@gmail.com'];
+      ids.sort();
+      String chatRoomId = ids.join('_');
+
+      final querySnapshot = await _fireStore
+          .collection('chat_rooms')
+          .doc(chatRoomId)
+          .collection('messages')
+          .get();
+
+      return querySnapshot.docs.isNotEmpty;
+    } catch (e) {
+      throw Exception('Erro ao verificar mensagens: $e');
+    }
+  }
 }
