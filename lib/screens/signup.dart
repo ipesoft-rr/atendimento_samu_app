@@ -16,6 +16,8 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  bool loading = true;
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -33,6 +35,10 @@ class _SignUpState extends State<SignUp> {
       type: MaskAutoCompletionType.lazy);
 
   void signUp() async {
+    setState(() {
+      loading = true;
+    });
+
     final authService = Provider.of<AuthService>(context, listen: false);
 
     try {
@@ -54,6 +60,10 @@ class _SignUpState extends State<SignUp> {
           content: Text(e.toString()),
         ),
       );
+    } finally {
+      setState(() {
+        loading = false;
+      });
     }
   }
 
@@ -125,7 +135,9 @@ class _SignUpState extends State<SignUp> {
                 const SizedBox(
                   height: 20,
                 ),
-                MyButton(onTap: signUp, text: 'Criar conta'),
+                loading
+                    ? const CircularProgressIndicator()
+                    : MyButton(onTap: signUp, text: 'Criar conta'),
                 const SizedBox(
                   height: 20,
                 ),

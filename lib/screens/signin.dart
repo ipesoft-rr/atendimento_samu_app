@@ -15,10 +15,15 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  bool loading = false;
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   void signIn() async {
+    setState(() {
+      loading = true;
+    });
     final authService = Provider.of<AuthService>(context, listen: false);
 
     try {
@@ -32,6 +37,10 @@ class _SignInState extends State<SignIn> {
           content: Text(e.toString()),
         ),
       );
+    } finally {
+      setState(() {
+        loading = false;
+      });
     }
   }
 
@@ -77,7 +86,9 @@ class _SignInState extends State<SignIn> {
                 const SizedBox(
                   height: 20,
                 ),
-                MyButton(onTap: signIn, text: 'Entrar'),
+                loading
+                    ? const CircularProgressIndicator()
+                    : MyButton(onTap: signIn, text: 'Entrar'),
                 const SizedBox(
                   height: 20,
                 ),
