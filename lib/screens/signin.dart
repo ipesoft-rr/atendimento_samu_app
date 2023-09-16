@@ -1,4 +1,6 @@
+import 'package:atendimento_samu_app/screens/chat.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import 'package:atendimento_samu_app/services/auth/auth_service.dart';
@@ -30,6 +32,37 @@ class _SignInState extends State<SignIn> {
       await authService.signInWithEmailAndPassword(
         emailController.text,
         passwordController.text,
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
+    } finally {
+      setState(() {
+        loading = false;
+      });
+    }
+  }
+
+  void signInAnonymously(BuildContext context) async {
+    final authService = Provider.of<AuthService>(context, listen: false);
+
+    try {
+      await authService.signInWithEmailAndPassword(
+        'anonimo@gmail.com',
+        '12345678',
+      );
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const ChatScreen(
+            receiverUserEmail: 'ipe@gmail.com',
+            receiverUserID: 'v6CrEksU4dafuKK3qxcYfiDehP72',
+          ),
+        ),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -91,6 +124,11 @@ class _SignInState extends State<SignIn> {
                     loading
                         ? const CircularProgressIndicator()
                         : MyButton(onTap: signIn, text: 'Entrar'),
+                    MyButton(
+                        onTap: () {
+                          signInAnonymously(context);
+                        },
+                        text: 'Emergência'),
                     const SizedBox(
                       height: 20,
                     ),
