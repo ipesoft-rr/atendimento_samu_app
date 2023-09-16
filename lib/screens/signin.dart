@@ -116,10 +116,10 @@ class _SignInState extends State<SignIn> {
           ),
           const Column(
             children: [
-              Text('Um aplicativo', style: TextStyle(color: Color(0xffF44336))),
+              Text('Um aplicativo', style: TextStyle(color: Color(0xffE63946))),
               Text('IpêSoft',
                   style: TextStyle(
-                      color: Color(0xffF44336), fontWeight: FontWeight.bold))
+                      color: Color(0xffE63946), fontWeight: FontWeight.bold))
             ],
           )
         ]),
