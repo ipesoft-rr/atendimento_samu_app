@@ -1,13 +1,16 @@
-import 'package:atendimento_samu_app/screens/home_screen.dart';
+import 'package:atendimento_samu_app/screens/chat.dart';
 import 'package:atendimento_samu_app/widgets/custom_button.dart';
 import 'package:atendimento_samu_app/widgets/custom_link.dart';
 import 'package:atendimento_samu_app/widgets/custom_paginator.dart';
 import 'package:atendimento_samu_app/widgets/custom_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:atendimento_samu_app/services/auth/auth_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key});
+  final VoidCallback callback;
+  const OnboardingScreen({super.key, required this.callback});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -65,8 +68,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomButton(
-                  titulo: _currentPage == 3 ? 'Cadastrar-se' : 'Próximo',
-                  goToHomePage: _currentPage == 3 ? goToHomePage : nextCard,
+                  titulo: _currentPage == 3 ? 'Começar' : 'Próximo',
+                  goToHomePage: _currentPage == 3 ? finishOnboarding : nextCard,
                 ),
               ],
             ),
@@ -76,7 +79,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CustomLink(titulo: 'Emergencia', goToHomePage: goToHomePage)
+                CustomLink(
+                    titulo: 'Emergencia',
+                    goToHomePage: () => signInAnonymously(context))
               ],
             ),
           )
@@ -85,11 +90,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  goToHomePage() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => HomeScreen()));
-
+  finishOnboarding() {
     _setState();
+    widget.callback();
   }
 
   nextCard() {
@@ -99,10 +102,37 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   _setState() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final active = prefs.getBool('ativo') ?? false;
+    final active = prefs.getBool('onboarding_completed') ?? false;
 
     if (!active) {
-      await prefs.setBool('ativo', true);
+      await prefs.setBool('onboarding_completed', true);
+    }
+  }
+
+  void signInAnonymously(BuildContext context) async {
+    final authService = Provider.of<AuthService>(context, listen: false);
+
+    try {
+      await authService.signInWithEmailAndPassword(
+        'anonimo@gmail.com',
+        '12345678',
+      );
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const ChatScreen(
+            receiverUserEmail: 'ipe@gmail.com',
+            receiverUserID: 'v6CrEksU4dafuKK3qxcYfiDehP72',
+          ),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
     }
   }
 }
