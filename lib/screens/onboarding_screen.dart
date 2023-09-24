@@ -7,7 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _OnboardingScreenState createState() => _OnboardingScreenState();
 }
 
@@ -18,7 +21,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFFFFF),
+      backgroundColor: const Color(0xFFFFFFFF),
       body: SafeArea(
         child: Stack(children: [
           PageView(
@@ -28,7 +31,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 _currentPage = page;
               });
             },
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             children: [
               CustomSlider(
                   titulo: 'Seja bem vindo!',
@@ -91,7 +94,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   nextCard() {
     _pageController.nextPage(
-        duration: Duration(seconds: 1), curve: Curves.easeIn);
+        duration: const Duration(seconds: 1), curve: Curves.easeIn);
   }
 
   _setState() async {
