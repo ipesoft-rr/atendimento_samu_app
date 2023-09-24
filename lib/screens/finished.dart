@@ -34,7 +34,8 @@ class _FinishedScreenState extends State<FinishedScreen> {
           const SizedBox(height: 8),
           ElevatedButton(
               onPressed: () {
-                if (_firebaseAuth.currentUser!.email != 'anonimo@gmail.com') {
+                if (_firebaseAuth.currentUser!.displayName != 'anonimo@gmail.com') {
+                  _firebaseAuth.signOut();
                   context.push('/');
                 } else {
                   _firebaseAuth.signOut();

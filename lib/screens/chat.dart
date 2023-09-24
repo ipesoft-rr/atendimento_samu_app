@@ -50,6 +50,8 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Theme.of(context).colorScheme.primary,
+        automaticallyImplyLeading:
+            _firebaseAuth.currentUser!.displayName == 'anonimo@gmail.com',
         title: Text(
           widget.receiverUserEmail,
           style: const TextStyle(
