@@ -1,6 +1,8 @@
 import 'package:atendimento_samu_app/services/auth/auth_gate.dart';
 import 'package:atendimento_samu_app/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
+// import 'package:atendimento_samu_app/screens/onboarding_screen.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
