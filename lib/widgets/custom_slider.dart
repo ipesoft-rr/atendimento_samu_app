@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class CustomSlider extends StatelessWidget {
   String titulo;
   String texto;
+  String img;
 
-  CustomSlider({required this.titulo, required this.texto});
+  CustomSlider({required this.titulo, required this.texto, required this.img});
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,11 @@ class CustomSlider extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 18),
             ),
+          ),
+          SizedBox(height: 16),
+          Image(
+            image: AssetImage(img),
+            height: 200,
           ),
           SizedBox(height: 32),
         ],

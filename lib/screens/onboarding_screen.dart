@@ -38,19 +38,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             children: [
               CustomSlider(
                   titulo: 'Seja bem vindo!',
-                  texto: 'Utilize os serviços do SAMU de forma acessível.'),
+                  texto: 'Utilize os serviços do SAMU de forma acessível.',
+                  img: 'assets/3.png'),
               CustomSlider(
                   titulo: 'Atendimento simplificado',
                   texto:
-                      'Abra um chamado de emergência rapidamente, sem esperas '),
+                      'Abra um chamado de emergência rapidamente, sem esperas ',
+                  img: 'assets/2.png'),
               CustomSlider(
                   titulo: 'Acessibilidade',
                   texto:
-                      'Nosso sistema possui configurações exclusivas de acessibilidade, como suporte a língua brasileira de sinais'),
+                      'Nosso sistema possui configurações exclusivas de acessibilidade, como suporte a língua brasileira de sinais',
+                  img: 'assets/1.png'),
               CustomSlider(
                   titulo: 'Vamos começar',
                   texto:
-                      'Cadastre-se ou entre com sua conta. Suas informações nos ajudam no atendimento'),
+                      'Cadastre-se ou entre com sua conta. Suas informações nos ajudam no atendimento',
+                  img: 'assets/4.png'),
             ],
           ),
           Padding(
@@ -97,7 +101,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   nextCard() {
     _pageController.nextPage(
-        duration: const Duration(seconds: 1), curve: Curves.easeIn);
+        duration: const Duration(milliseconds: 600), curve: Curves.easeIn);
   }
 
   _setState() async {

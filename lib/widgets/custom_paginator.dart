@@ -19,7 +19,7 @@ class CustomPaginator extends StatelessWidget {
                 height: 10,
                 decoration: BoxDecoration(
                   color: index == page
-                      ? Color.fromARGB(255, 74, 98, 236)
+                      ? Color.fromARGB(255, 230, 57, 70)
                       : Colors.grey,
                   shape: BoxShape.circle,
                 ),
